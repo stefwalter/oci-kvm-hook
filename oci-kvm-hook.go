@@ -21,7 +21,7 @@ type State struct {
 }
 
 type Process struct {
-	Env     []string       `json:"env"`
+	Env []string `json:"env"`
 }
 
 func allowKvm(state State) {
