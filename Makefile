@@ -10,7 +10,7 @@ HOOKSINSTALLDIR=$(DESTDIR)$(HOOKSDIR)
 GOBUILD=go build -a -ldflags "${LDFLAGS:-} -B 0x$(shell head -c20 /dev/urandom|od -An -tx1|tr -d ' \n')"
 
 oci-kvm-hook: oci-kvm-hook.go
-	GOPATH=$$GOPATH:/usr/share/gocode $(GOBUILD) -o oci-kvm-hook
+	GOPATH=$${GOPATH:+$$GOPATH:}/usr/share/gocode $(GOBUILD) -o oci-kvm-hook
 
 oci-kvm-hook.1: oci-kvm-hook.1.md
 	go-md2man -in "oci-kvm-hook.1.md" -out "oci-kvm-hook.1"
