@@ -1,0 +1,16 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "name": "test-kvm"
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "fedora",
+                "image": "stefwalter/test-kvm",
+		"user": "root"
+            }
+	]
+    }
+}
