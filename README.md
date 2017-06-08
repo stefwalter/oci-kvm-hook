@@ -8,13 +8,11 @@ concept there.
 Here are the manual commands to test this out. You should see a Linux boot process.
 
     $ sudo docker run -ti fedora /bin/bash
-    # yum install wget qemu-kvm
+    # yum install qemu-kvm
     ...
-    # wget https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-25-20170314.0/CloudImages/x86_64/images/Fedora-Atomic-25-20170314.0.x86_64.qcow2
-    # wget https://rawgit.com/cockpit-project/cockpit/master/test/common/cloud-init.iso
-    # mknod /dev/kvm c 10 232
-    # chmod 666 /dev/kvm
-    # qemu-kvm -boot c -net nic -net user -m 1024 -nographic -cdrom cloud-init.iso Fedora-Atomic-25-20170314.0.x86_64.qcow2
+    # curl -Lo atomic.qcow2 https://ftp-stud.hs-esslingen.de/pub/Mirrors/alt.fedoraproject.org/atomic/stable/Fedora-Atomic-26-20170707.1/CloudImages/x86_64/images/Fedora-Atomic-26-20170707.1.x86_64.qcow2
+    # curl -Lo cloud-init.iso https://rawgit.com/stefwalter/oci-kvm-hook/master/test/cloud-init.iso
+    # qemu-kvm -boot c -net nic -net user -m 1024 -nographic -cdrom cloud-init.iso atomic.qcow2
 
 Or with a prebuilt constainer:
 

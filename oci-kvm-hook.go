@@ -26,28 +26,31 @@ type Process struct {
 
 func allowKvm(state State) {
 	// TODO: Use state.Pid and /proc/$pid/cgroup to determine the right devices.allow file
-	path := fmt.Sprintf("/sys/fs/cgroup/devices/system.slice/docker-%s.scope/devices.allow", state.ID)
-	allow, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0600)
+	allow_path := fmt.Sprintf("/sys/fs/cgroup/devices/system.slice/docker-%s.scope/devices.allow", state.ID)
+	allow, err := os.OpenFile(allow_path, os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
-		log.Printf("Failed to open file: %s: %v", path, err.Error())
+		log.Printf("Failed to open file: %s: %v", allow_path, err.Error())
 		return
 	}
 
 	_, err = allow.WriteString("c 10:232 rwm")
 	if err != nil {
-		log.Printf("Failed to write to group file: %s: %v", path, err.Error())
+		log.Printf("Failed to write to group file: %s: %v", allow_path, err.Error())
 		return
 	}
 
-	path = fmt.Sprintf("%s/dev/kvm", state.Root)
-	cmd := exec.Command("/usr/bin/mknod", path, "c", "10", "232")
-	_, err = cmd.Output()
+	allow.Close()
+
+	kvm_path := fmt.Sprintf("%s/dev/kvm", state.Root)
+	cmd := exec.Command("/usr/bin/nsenter", "--target", fmt.Sprintf("%d", state.Pid), "--mount", "--cgroup", "--",
+		"/usr/bin/mknod", "-m", "0666", kvm_path, "c", "10", "232")
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Printf("Failed to run mknod: %s: %v", path, err.Error())
+		log.Printf("Failed to run mknod: %s: %v: %s", kvm_path, err.Error(), output)
 		return
 	}
 
-	log.Printf("Allowed /dev/kvm in new container: %s %s", path, state.ID)
+	log.Printf("Allowed /dev/kvm in new container: %s %s %s", kvm_path, allow_path, state.ID)
 }
 
 func main() {
