@@ -1,4 +1,6 @@
 *.swp
 oci-kvm-hook
 *.1
-
+*.tar.gz
+*.rpm
+x86_64/

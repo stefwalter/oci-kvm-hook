@@ -28,3 +28,9 @@ install: oci-kvm-hook oci-kvm-hook.1
 clean:
 	rm -f oci-kvm-hook *~
 	rm -f oci-kvm-hook.1
+	rm -f *.tar.gz *.rpm
+	rm -rf ./x86_64/
+
+rpms:
+	sh -c "git archive HEAD --output=$$(git describe --abbrev=0).tar.gz"
+	rpmbuild -ba --define "_sourcedir $$PWD" --define "_specdir $$PWD" --define "_rpmdir $$PWD" --define "_srcrpmdir $$PWD" oci-kvm-hook.spec
