@@ -41,9 +41,18 @@ func allowKvm(state State) {
 
 	allow.Close()
 
+	// Get info about /dev/kvm
+	info, err := os.Stat("/dev/kvm")
+	if err != nil {
+		log.Printf("Skipping /dev/kvm creation in container because not present on host: %v", err.Error())
+		return
+	}
+
+	// A mode like 0666 or 0600
+	mode := fmt.Sprintf("%#o", info.Mode()&0xFFFF)
 	kvm_path := fmt.Sprintf("%s/dev/kvm", state.Root)
 	cmd := exec.Command("/usr/bin/nsenter", "--target", fmt.Sprintf("%d", state.Pid), "--mount", "--cgroup", "--",
-		"/usr/bin/mknod", "-m", "0666", kvm_path, "c", "10", "232")
+		"/usr/bin/mknod", "-m", mode, kvm_path, "c", "10", "232")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Printf("Failed to run mknod: %s: %v: %s", kvm_path, err.Error(), output)
