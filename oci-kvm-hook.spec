@@ -27,7 +27,7 @@
 %global import_path     %{provider_prefix}
 
 Name:           %{repo}
-Version:        0.1
+Version:        0.2
 Release:        1
 Summary:        Golang binary to mount /dev/kvm into OCI containers
 License:        ASL 2.0
