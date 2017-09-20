@@ -16,7 +16,7 @@ Here are the manual commands to test this out. You should see a Linux boot proce
 
 Or with a prebuilt constainer:
 
-    $ sudo docker run -ti stefwalter/test-kvm
+    $ sudo docker run -ti --rm stefwalter/test-kvm
 
 Or in Openshift:
 
