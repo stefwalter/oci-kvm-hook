@@ -51,7 +51,7 @@ func allowKvm(state State) {
 	// A mode like 0666 or 0600
 	mode := fmt.Sprintf("%#o", info.Mode()&0xFFFF)
 	kvm_path := fmt.Sprintf("%s/dev/kvm", state.Root)
-	cmd := exec.Command("/usr/bin/nsenter", "--target", fmt.Sprintf("%d", state.Pid), "--mount", "--cgroup", "--",
+	cmd := exec.Command("/usr/bin/nsenter", "--target", fmt.Sprintf("%d", state.Pid), "--mount", "--",
 		"/usr/bin/mknod", "-m", mode, kvm_path, "c", "10", "232")
 	output, err := cmd.CombinedOutput()
 	if err != nil {
