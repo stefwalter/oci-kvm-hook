@@ -28,7 +28,7 @@
 
 Name:           %{repo}
 Version:        0.2
-Release:        1
+Release:        2%{?dist}
 Summary:        Golang binary to mount /dev/kvm into OCI containers
 License:        ASL 2.0
 URL:            https://%{import_path}
@@ -42,11 +42,13 @@ BuildRequires: golang(gopkg.in/yaml.v1)
 %endif
 BuildRequires:   go-md2man
 
+ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %{arm}}
+
 %description
 %{summary}
 
 %prep
-%setup -q -c
+%setup -q -n %{repo}-%{version}
 
 %build
 %if ! 0%{?with_bundled}
@@ -55,10 +57,10 @@ export GOPATH=$(pwd):%{gopath}
 export GOPATH=$(pwd):$(pwd)/Godeps/_workspace:%{gopath}
 %endif
 
-make %{?_smp_mflags} build docs
+%make_build
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 
 %files
 %license LICENSE
@@ -69,5 +71,12 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
-* Wed Sep 20 2017 Stef Walter <stefw@redhat.com> - 0.1.1
+* Thu Sep 21 2017 Stef Walter <stefw@redhat.com> - 0.2-2
+- Updated for package review
+
+* Wed Sep 20 2017 Stef Walter <stefw@redhat.com> - 0.2-1
+- Copy /dev/kvm permissions from host
+- Avoid nsenter --cgroup option for compatibility
+
+* Wed Sep 20 2017 Stef Walter <stefw@redhat.com> - 0.1-1
 - Initial release
