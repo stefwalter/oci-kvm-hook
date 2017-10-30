@@ -23,3 +23,5 @@ Or in Openshift:
     $ oc create -f test/pod.json
     $ oc get pod test-kvm
     $ oc log test-kvm
+
+(This assumes the pod will run in an SCC with RunAsAny).
