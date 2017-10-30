@@ -9,8 +9,8 @@
             {
                 "name": "fedora",
                 "image": "stefwalter/test-kvm",
-		"user": "root"
+                "user": "root"
             }
-	]
+        ]
     }
 }
