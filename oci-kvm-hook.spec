@@ -27,8 +27,8 @@
 %global import_path     %{provider_prefix}
 
 Name:           %{repo}
-Version:        0.2
-Release:        2%{?dist}
+Version:        0.3
+Release:        1%{?dist}
 Summary:        Golang binary to mount /dev/kvm into OCI containers
 License:        ASL 2.0
 URL:            https://%{import_path}
@@ -71,6 +71,9 @@ export GOPATH=$(pwd):$(pwd)/Godeps/_workspace:%{gopath}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Feb 02 2018 Stef Walter <stefw@redhat.com> - 0.3-1
+- Lookup devices cgroup path of target process
+
 * Thu Sep 21 2017 Stef Walter <stefw@redhat.com> - 0.2-2
 - Updated for package review
 
