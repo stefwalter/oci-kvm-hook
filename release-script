@@ -22,8 +22,9 @@ job release-github
 job release-koji master
 job release-koji f26
 job release-koji f27
+job release-koji f28
 job release-koji epel7
 job release-bodhi F28
 job release-bodhi F27
-job release-bodhi EPEL7
+job release-bodhi EL7
 
