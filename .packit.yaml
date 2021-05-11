@@ -19,3 +19,4 @@ jobs:
   metadata:
     targets:
     - fedora-all
+    - centos-stream-x86_64
