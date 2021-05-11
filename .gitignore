@@ -1,4 +1,5 @@
 *.swp
+*.swo
 oci-kvm-hook
 *.1
 *.tar.gz
