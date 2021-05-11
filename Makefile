@@ -5,7 +5,7 @@ all: build docs
 PREFIX ?= $(DESTDIR)/usr
 HOOKSDIR=/usr/libexec/oci/hooks.d
 HOOKSINSTALLDIR=$(DESTDIR)$(HOOKSDIR)
-JSONDIR=/usr/share/containers/oci/hooks.d/
+JSONDIR=/usr/share/containers/oci/hooks.d
 JSONINSTALLDIR=$(DESTDIR)$(JSONDIR)
 
 # need this substitution to get build ID note
@@ -25,6 +25,7 @@ build: oci-kvm-hook
 install: oci-kvm-hook oci-kvm-hook.1
 	install -d -m 755 $(HOOKSINSTALLDIR)
 	install -m 755 oci-kvm-hook $(HOOKSINSTALLDIR)
+	install -d -m 755 $(JSONINSTALLDIR)
 	install -m 755 oci-kvm-hook.json $(JSONINSTALLDIR)
 	install -d -m 755 $(PREFIX)/share/man/man1
 	install -m 644 oci-kvm-hook.1 $(PREFIX)/share/man/man1

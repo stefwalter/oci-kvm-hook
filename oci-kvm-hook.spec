@@ -28,7 +28,7 @@
 
 Name:           %{repo}
 Version:        0.3
-Release:        1.20210511145610774347.master.5.ge92c0a0%{?dist}
+Release:        1.20210511185408377006.log.test.11.ge4c78db%{?dist}
 Summary:        Golang binary to mount /dev/kvm into OCI containers
 License:        ASL 2.0
 URL:            https://%{import_path}
@@ -51,9 +51,7 @@ ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %
 %setup -q -n oci-kvm-hook-0.3
 
 %build
-%if ! 0%{?with_bundled}
-export GOPATH=$(pwd):%{gopath}
-%else
+%if 0%{?with_bundled}
 export GOPATH=$(pwd):$(pwd)/Godeps/_workspace:%{gopath}
 %endif
 
@@ -68,6 +66,10 @@ export GOPATH=$(pwd):$(pwd)/Godeps/_workspace:%{gopath}
 %dir %{_libexecdir}/oci
 %dir %{_libexecdir}/oci/hooks.d
 %{_libexecdir}/oci/hooks.d/%{name}
+%dir %{_datadir}/containers
+%dir %{_datadir}/containers/oci
+%dir %{_datadir}/containers/oci/hooks.d
+%{_datadir}/containers/oci/hooks.d/%{name}.json
 %{_mandir}/man1/%{name}.1*
 
 %changelog
