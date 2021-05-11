@@ -21,12 +21,17 @@ oci-kvm-hook.1: oci-kvm-hook.1.md
 docs: oci-kvm-hook.1
 build: oci-kvm-hook
 
+# Must be run with: sudo make install
 install: oci-kvm-hook oci-kvm-hook.1
 	install -d -m 755 $(HOOKSINSTALLDIR)
 	install -m 755 oci-kvm-hook $(HOOKSINSTALLDIR)
 	install -m 755 oci-kvm-hook.json $(JSONINSTALLDIR)
 	install -d -m 755 $(PREFIX)/share/man/man1
 	install -m 644 oci-kvm-hook.1 $(PREFIX)/share/man/man1
+
+# Must be run with: sudo make test
+test: install
+	test/smoke-test.sh
 
 clean:
 	rm -f oci-kvm-hook *~
