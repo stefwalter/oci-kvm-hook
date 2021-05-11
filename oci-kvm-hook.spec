@@ -27,12 +27,12 @@
 %global import_path     %{provider_prefix}
 
 Name:           %{repo}
-Version:        0
-Release:        1%{?dist}
+Version:        0.3
+Release:        1.20210511145610774347.master.5.ge92c0a0%{?dist}
 Summary:        Golang binary to mount /dev/kvm into OCI containers
 License:        ASL 2.0
 URL:            https://%{import_path}
-Source0:        https://%{import_path}/archive/%{version}.tar.gz
+Source0:        oci-kvm-hook-0.3.tar.gz
 
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -48,7 +48,7 @@ ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %
 %{summary}
 
 %prep
-%setup -q -n %{repo}-%{version}
+%setup -q -n oci-kvm-hook-0.3
 
 %build
 %if ! 0%{?with_bundled}
