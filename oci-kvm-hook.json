@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "hook": {
+        "path": "/usr/libexec/oci/hooks.d/oci-kvm-hook",
+        "args": [
+            "oci-kvm-hook",
+            "prestart"
+        ]
+    },
+    "when": {
+        "always": true
+    },
+    "stages": [
+        "prestart"
+    ]
+}
+

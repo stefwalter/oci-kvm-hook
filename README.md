@@ -6,8 +6,10 @@ concept there.
 ## Testing this out
 
 Here are the manual commands to test this out. You should see a Linux boot process.
+Use docker or podman as necessary:
 
-    $ sudo docker run -ti fedora /bin/bash
+    $ RUNNER="podman"
+    $ sudo $RUNNER run -ti fedora /bin/bash
     # yum install qemu-kvm
     ...
     # curl -Lo atomic.qcow2 https://ftp-stud.hs-esslingen.de/pub/Mirrors/alt.fedoraproject.org/atomic/stable/Fedora-Atomic-26-20170707.1/CloudImages/x86_64/images/Fedora-Atomic-26-20170707.1.x86_64.qcow2
@@ -16,7 +18,8 @@ Here are the manual commands to test this out. You should see a Linux boot proce
 
 Or with a prebuilt constainer:
 
-    $ sudo docker run -ti --rm stefwalter/test-kvm
+    $ RUNNER="podman"
+    $ sudo $RUNNER run -ti --rm stefwalter/test-kvm
 
 Or in Openshift:
 
